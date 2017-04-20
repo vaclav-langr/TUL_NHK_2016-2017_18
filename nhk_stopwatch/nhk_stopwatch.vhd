@@ -32,6 +32,15 @@ SIGNAL s_inv_button2		:	std_logic;
 SIGNAL s_long_press		:	std_logic;
 SIGNAL s_short_press		:	std_logic;
 SIGNAL s_reset_detector	:	std_logic;
+
+SIGNAL s_stop_long		:	std_logic;
+SIGNAL s_stop_short		:	std_logic;
+SIGNAL s_save_count		:	std_logic_vector(7 downto 0);
+SIGNAL s_current_saved	:	std_logic_vector(7 downto 0);
+SIGNAL s_show_current	:	std_logic_vector(7 downto 0);
+SIGNAL s_current_shown	:	std_logic_vector(7 downto 0);
+SIGNAL s_segm3_num4		: 	std_logic_vector(3 downto 0);
+SIGNAL s_segm4_num4		:	std_logic_vector(3 downto 0);
 begin
 
 -- hlavni cast stopek
@@ -136,5 +145,58 @@ Inst_or:	ENTITY work.hr_or
 		a => s_long_press,
 		b => s_short_press,
 		o => s_reset_detector
+	);
+	
+-- ulozeni/vyvolani hodnoty
+Inst_and_stop_long: ENTITY work.hr_and
+	PORT MAP(
+	   a => s_stop_state,
+		b => s_long_press,
+		o => s_stop_long
+	);
+Inst_and_stop_short: ENTITY work.hr_and
+	PORT MAP(
+	   a => s_stop_state,
+		b => s_short_press,
+		o => s_stop_short
+	);
+Inst_mux16_1: ENTITY work.mux16_8
+	PORT MAP(
+		data0 => s_current_saved,
+		data1 => s_counter,
+      a => s_stop_long,
+      y => s_save_count
+	);
+Inst_d8_1: ENTITY work.hr_d8
+	PORT MAP(
+		clk => clk_in,
+		data => s_save_count,
+		o => s_current_saved
+	);
+Inst_mux16_2: ENTITY work.mux16_8
+	PORT MAP(
+		data0 => s_current_shown,
+		data1 => s_current_saved,
+      a => s_stop_short,
+      y => s_show_current
+	);
+Inst_d8_2: ENTITY work.hr_d8
+	PORT MAP(
+		clk => clk_in,
+		data => s_show_current,
+		o => s_current_shown
+	);
+	
+s_segm3_num4 <= s_current_shown(3 downto 0);
+s_segm4_num4 <= s_current_shown(7 downto 4);
+Inst_dec_7segm3: ENTITY work.dec_7segm
+	PORT MAP(
+		input4 => s_segm3_num4,
+		output7 => segm3
+	);
+Inst_dec_7segm4: ENTITY work.dec_7segm
+	PORT MAP(
+		input4 => s_segm4_num4,
+		output7 => segm4
 	);
 end arch;
