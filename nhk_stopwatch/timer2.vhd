@@ -5,16 +5,16 @@ USE ieee.std_logic_1164.ALL;
 USE ieee.std_logic_arith.ALL;
 USE ieee.std_logic_signed.ALL;
 
-entity timer is
+entity timer2 is
 	port(
 		clk_in		: in	std_logic;
 		reset_in		: in	std_logic;
-		timer1_en_in : in	std_logic;
-		timer1_out	: out	std_logic
+		timer2_en_in : in	std_logic;
+		timer2_out	: out	std_logic
 		);
-end timer;
+end timer2;
 
-architecture ar of timer is
+architecture ar of timer2 is
 signal s_cnt8: std_logic_vector(7 downto 0);
 signal s_enable: std_logic;	
 	
@@ -25,6 +25,7 @@ begin
    begin
       if reset_in = '1' then
          cnt := (others => '0');
+			s_cnt8 <= (others => '0');
          s_enable <= '0';
       elsif clk_in'event and clk_in = '1' then
          if cnt = 20000 then
@@ -40,8 +41,8 @@ begin
    process (clk_in)
    begin
 	 if clk_in'event and clk_in = '1' then
-		if timer1_en_in = '1' then
-			if s_enable = '1' then
+		if timer2_en_in = '1' then
+			if s_enable = '1' and s_cnt8 < 200 then
 				s_cnt8 <= s_cnt8 + 1;
 			end if;
 		else
@@ -52,7 +53,7 @@ begin
    
    process (s_cnt8)
    begin
-		IF (s_cnt8 = 100) THEN timer1_out <= '1'; ELSE timer1_out <= '0'; END IF;
+		IF (s_cnt8 >= 200) THEN timer2_out <= '1'; ELSE timer2_out <= '0'; END IF;
    end process;  
 	
 END ar;
