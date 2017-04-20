@@ -4,7 +4,8 @@ use ieee.numeric_std.all;
 
 entity mux2_1 is
    port (
-      x : in std_logic_vector (1 downto 0);
+      data0 : in std_logic;
+		data1	: in std_logic;
       a : in std_logic;
       y : out std_logic
    	  );
@@ -12,11 +13,11 @@ end mux2_1;
 
 architecture a_mux16_8 of mux2_1 is
 begin
-   process (x, a)
+   process (data0, data1, a)
    begin      
 		case a is
-			when '0' => y <= x(0);
-			when '1' => y <= x(1);
+			when '0' => y <= data0;
+			when '1' => y <= data1;
 		end case;
    end process;
 end a_mux16_8;
