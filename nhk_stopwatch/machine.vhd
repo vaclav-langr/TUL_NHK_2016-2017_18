@@ -70,20 +70,20 @@ begin
 				clear_state <= '0';
 			when s2 =>
 				stop_state  <= '0';
-				start_state <= '1';
-				clear_state <= '0';
+				start_state <= '0';
+				clear_state <= '1';
 			when s3 =>
 				stop_state  <= '0';
 				start_state <= '0';
-				clear_state <= '0';
+				clear_state <= '1';
 			when s4 =>
 				stop_state  <= '0';
-				start_state <= '0';
-				clear_state <= '1';
+				start_state <= '1';
+				clear_state <= '0';
 			when s5 =>
 				stop_state  <= '0';
 				start_state <= '0';
-				clear_state <= '1';
+				clear_state <= '0';
 			when others => null;
 		end case;
 	end process;

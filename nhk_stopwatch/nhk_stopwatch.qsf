@@ -59,14 +59,14 @@ set_global_assignment -name VHDL_FILE machine.vhd
 set_global_assignment -name VHDL_FILE timer.vhd
 set_global_assignment -name VHDL_FILE dec_7segm.vhd
 set_global_assignment -name VHDL_FILE timer2.vhd
-set_global_assignment -name VHDL_FILE invertor.vhd
-set_global_assignment -name VHDL_FILE hr_and.vhd
 set_global_assignment -name VHDL_FILE mux16_8.vhd
-set_global_assignment -name VHDL_FILE hr_or.vhd
 set_global_assignment -name VHDL_FILE mux2_1.vhd
 set_global_assignment -name VHDL_FILE hr_d.vhd
 set_global_assignment -name VHDL_FILE nhk_stopwatch.vhd
 set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform.vwf
+set_global_assignment -name VHDL_FILE hold_detector.vhd
+set_global_assignment -name VHDL_FILE memory_display.vhd
+set_global_assignment -name VHDL_FILE stopwatch.vhd
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
