@@ -4,10 +4,10 @@ use ieee.numeric_std.all;
 
 entity mux16_8 is
    port (
-      data0 : in std_logic_vector (7 downto 0);
-		data1	: in std_logic_vector (7 downto 0);
+      data0 : in std_logic_vector (3 downto 0);
+		data1	: in std_logic_vector (3 downto 0);
       a 		: in std_logic;
-      y 		: out std_logic_vector (7 downto 0)
+      y 		: out std_logic_vector (3 downto 0)
    	  );
 end mux16_8;
 

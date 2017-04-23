@@ -7,7 +7,8 @@ ENTITY counter IS
 		count_inc	: IN	std_logic;
 		clk			: IN 	std_logic;
 		reset			: IN 	std_logic;
-		output8		: OUT	std_logic_vector(7 downto 0)
+		tens			: OUT	std_logic_vector(3 downto 0);
+		ones			: OUT	std_logic_vector(3 downto 0)
 		);
 END counter;
 
@@ -16,7 +17,8 @@ ARCHITECTURE ar OF counter IS
 	SIGNAL state : states := s0;
 	SIGNAL nxt_state : states := s0;
 	SIGNAL en	: bit;
-	SIGNAL citac	: unsigned (7 downto 0);
+	SIGNAL s_tens	: integer range 0 to 9;
+	SIGNAL s_ones	: integer range 0 to 9;
 BEGIN
 	clkd: process(reset,clk)
     begin
@@ -53,15 +55,22 @@ BEGIN
 	process (clk, reset)
 	begin
 		if reset = '1' then
-			citac <= "00000000";
+			s_tens <= 0;
+			s_ones <= 0;
 		elsif (clk'event and clk = '1') then
 			if en = '1' then
-				citac <= citac + 1;
-				if (citac >= 99) then
-					citac <= "00000000";
+				s_ones <= s_ones + 1;
+				if(s_ones >= 9) then
+					s_ones <= 0;
+					s_tens <= s_tens + 1;
+					if(s_tens >= 9) then
+						s_tens <= 0;
+					end if;
 				end if;
 			end if;
 		end if;
-		output8 <= STD_LOGIC_VECTOR(citac);
 	end process;
+	
+	tens <= CONV_STD_LOGIC_VECTOR(s_tens,4);
+	ones <= CONV_STD_LOGIC_VECTOR(s_ones,4);
 END ar;

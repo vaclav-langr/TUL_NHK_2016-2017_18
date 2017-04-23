@@ -20,7 +20,8 @@ architecture arch of nhk_stopwatch is
 SIGNAL s_start_state		:	std_logic;
 SIGNAL s_stop_state		:	std_logic;
 SIGNAL s_clear_state		:	std_logic;
-SIGNAL s_counter			: 	std_logic_vector(7 downto 0);
+SIGNAL s_c_tens			: 	std_logic_vector(3 downto 0);
+SIGNAL s_c_ones			: 	std_logic_vector(3 downto 0);
 
 SIGNAL s_long_press		:	std_logic;
 SIGNAL s_short_press		:	std_logic;
@@ -32,7 +33,8 @@ Inst_stopwatch:	ENTITY work.stopwatch
 			button => button1,
 			stop_state => s_stop_state,
 			clear_state => s_clear_state,
-			count => s_counter,
+			c_tens => s_c_tens,
+			c_ones => s_c_ones,
 			segm1 => segm1,
 			segm2	=> segm2
 		);
@@ -54,7 +56,8 @@ Inst_memory_display:	ENTITY work.memory_display
 		clk_in => clk_in,
 		long_press => s_long_press,
 		short_press => s_short_press,
-		count => s_counter,
+		c_ones => s_c_ones,
+		c_tens => s_c_tens,
 		segm1 => segm3,
 		segm2	=> segm4
 	);

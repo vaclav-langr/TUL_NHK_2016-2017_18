@@ -7,7 +7,8 @@ entity stopwatch is
 		button		:	in		std_logic;
 		stop_state	:	out	std_logic;
 		clear_state	:	out	std_logic;
-		count			:	out	std_logic_vector(7 downto 0);
+		c_tens		:	out	std_logic_vector(3 downto 0);
+		c_ones		:	out	std_logic_vector(3 downto 0);
 		segm1			:	out	std_logic_vector(6 downto 0);
 		segm2			:	out	std_logic_vector(6 downto 0)
 	);
@@ -18,9 +19,8 @@ SIGNAL s_start_state		:	std_logic;
 SIGNAL s_stop_state		:	std_logic;
 SIGNAL s_clear_state		:	std_logic;
 SIGNAL s_timer_tick		:	std_logic;
-SIGNAL s_counter			: 	std_logic_vector(7 downto 0);
-SIGNAL s_segm1_num4		: 	std_logic_vector(3 downto 0);
-SIGNAL s_segm2_num4		:	std_logic_vector(3 downto 0);
+SIGNAL s_c_tens			: 	std_logic_vector(3 downto 0);
+SIGNAL s_c_ones			: 	std_logic_vector(3 downto 0);
 begin
 -- hlavni cast stopek
 Inst_machine:	ENTITY work.machine
@@ -46,19 +46,19 @@ Inst_counter: ENTITY work.counter
 		count_inc => s_timer_tick,
 		clk => clk_in,
 		reset => s_clear_state,
-		output8 => s_counter
+		tens => s_c_tens,
+		ones => s_c_ones
 	);
-count <= s_counter;	
-s_segm1_num4 <= s_counter(3 downto 0);
-s_segm2_num4 <= s_counter(7 downto 4);
+c_tens <= s_c_tens;
+c_ones <= s_c_ones;
 Inst_dec_7segm1: ENTITY work.dec_7segm
 	PORT MAP(
-		input4 => s_segm1_num4,
+		input4 => s_c_tens,
 		output7 => segm1
 	);
 Inst_dec_7segm2: ENTITY work.dec_7segm
 	PORT MAP(
-		input4 => s_segm2_num4,
+		input4 => s_c_ones,
 		output7 => segm2
 	);
 end arch;
