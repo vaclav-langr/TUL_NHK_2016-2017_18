@@ -9,10 +9,7 @@ entity nhk_stopwatch is
 		segm1		:	out	std_logic_vector(6 downto 0);
 		segm2		:	out	std_logic_vector(6 downto 0);
 		segm3		:	out	std_logic_vector(6 downto 0);
-		segm4		:	out	std_logic_vector(6 downto 0);		
-		led1		:	out	std_logic;
-		led2		:	out	std_logic;
-		led3		:	out	std_logic
+		segm4		:	out	std_logic_vector(6 downto 0)		
 	);
 end nhk_stopwatch;
 
@@ -38,9 +35,6 @@ Inst_stopwatch:	ENTITY work.stopwatch
 			segm1 => segm1,
 			segm2	=> segm2
 		);
-led1 <= s_stop_state;
-led2 <= not s_stop_state and not s_clear_state;
-led3 <= s_clear_state;
 Inst_hold_detector:	ENTITY work.hold_detector
 	PORT MAP(
 		clk_in => clk_in,

@@ -32,27 +32,7 @@ HEADER
 	GRID_DUTY_CYCLE = 50;
 }
 
-SIGNAL("button")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = SINGLE_BIT;
-	WIDTH = 1;
-	LSB_INDEX = -1;
-	DIRECTION = INPUT;
-	PARENT = "";
-}
-
-SIGNAL("clear_state")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = SINGLE_BIT;
-	WIDTH = 1;
-	LSB_INDEX = -1;
-	DIRECTION = INPUT;
-	PARENT = "";
-}
-
-SIGNAL("clk_in")
+SIGNAL("clk")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
@@ -72,6 +52,16 @@ SIGNAL("long_press")
 	PARENT = "";
 }
 
+SIGNAL("reset")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = INPUT;
+	PARENT = "";
+}
+
 SIGNAL("short_press")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
@@ -82,7 +72,7 @@ SIGNAL("short_press")
 	PARENT = "";
 }
 
-SIGNAL("stop_state")
+SIGNAL("user_input")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
@@ -92,38 +82,16 @@ SIGNAL("stop_state")
 	PARENT = "";
 }
 
-TRANSITION_LIST("button")
-{
-	NODE
-	{
-		REPEAT = 1;
-		LEVEL 0 FOR 80.0;
-		LEVEL 1 FOR 1200.0;
-		LEVEL 0 FOR 8720.0;
-	}
-}
-
-TRANSITION_LIST("clear_state")
-{
-	NODE
-	{
-		REPEAT = 1;
-		LEVEL 0 FOR 1920.0;
-		LEVEL 1 FOR 320.0;
-		LEVEL 0 FOR 7760.0;
-	}
-}
-
-TRANSITION_LIST("clk_in")
+TRANSITION_LIST("clk")
 {
 	NODE
 	{
 		REPEAT = 1;
 		NODE
 		{
-			REPEAT = 200;
-			LEVEL 0 FOR 25.0;
-			LEVEL 1 FOR 25.0;
+			REPEAT = 100;
+			LEVEL 0 FOR 50.0;
+			LEVEL 1 FOR 50.0;
 		}
 	}
 }
@@ -137,6 +105,15 @@ TRANSITION_LIST("long_press")
 	}
 }
 
+TRANSITION_LIST("reset")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL 0 FOR 10000.0;
+	}
+}
+
 TRANSITION_LIST("short_press")
 {
 	NODE
@@ -146,22 +123,24 @@ TRANSITION_LIST("short_press")
 	}
 }
 
-TRANSITION_LIST("stop_state")
+TRANSITION_LIST("user_input")
 {
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 0 FOR 640.0;
-		LEVEL 1 FOR 1200.0;
-		LEVEL 0 FOR 560.0;
-		LEVEL 1 FOR 1200.0;
-		LEVEL 0 FOR 6400.0;
+		LEVEL 0 FOR 320.0;
+		LEVEL 1 FOR 240.0;
+		LEVEL 0 FOR 320.0;
+		LEVEL 1 FOR 160.0;
+		LEVEL 0 FOR 400.0;
+		LEVEL 1 FOR 160.0;
+		LEVEL 0 FOR 8400.0;
 	}
 }
 
 DISPLAY_LINE
 {
-	CHANNEL = "clk_in";
+	CHANNEL = "clk";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 0;
@@ -170,7 +149,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "clear_state";
+	CHANNEL = "reset";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 1;
@@ -179,7 +158,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "stop_state";
+	CHANNEL = "user_input";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 2;
@@ -188,7 +167,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "button";
+	CHANNEL = "short_press";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 3;
@@ -201,15 +180,6 @@ DISPLAY_LINE
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 4;
-	TREE_LEVEL = 0;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "short_press";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
-	TREE_INDEX = 5;
 	TREE_LEVEL = 0;
 }
 

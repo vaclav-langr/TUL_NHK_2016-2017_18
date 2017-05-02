@@ -8,7 +8,8 @@ entity hold_detector is
 		stop_state	:	in		std_logic;
 		clear_state	:	in		std_logic;
 		long_press	:	out	std_logic;
-		short_press	:	out	std_logic
+		short_press	:	out	std_logic;
+		pulse			:	out	std_logic
 	);
 end hold_detector;
 
@@ -23,38 +24,17 @@ begin
 Inst_timer2: ENTITY work.timer2
 	PORT MAP(
 		clk_in => clk_in,
-		reset_in => not button,
+		reset_in => clear_state,
 		timer2_en_in => button and stop_state,
 		timer2_out => s_timer2_tick
 	);
-Inst_mux2_1: ENTITY work.mux2_1
+pulse <= s_timer2_tick;
+Inst_detectorMachine:	ENTITY work.detectorMachine
 	PORT MAP(
-	   data0 => s_d1_1,
-		data1	=> s_timer2_tick,
-      a => button,
-      y => s_mux2_1
-	);
-Inst_d1_1: ENTITY work.hr_d
-	PORT MAP(
-	   data => s_mux2_1,
-		reset => clear_state,
 		clk => clk_in,
-		o => s_d1_1
+		reset => not button,
+		user_input => s_timer2_tick,
+		long_press => long_press,
+		short_press => short_press
 	);
-Inst_mux2_2: ENTITY work.mux2_1
-	PORT MAP(
-	   data0 => s_d1_2,
-		data1	=> not s_d1_1,
-      a => button,
-      y => s_mux2_2
-	);
-Inst_d1_2: ENTITY work.hr_d
-	PORT MAP(
-	   data => s_mux2_2,
-		reset => clear_state,
-		clk => clk_in,
-		o => s_d1_2
-	);
-long_press <= not button and s_d1_1 and stop_state;
-short_press <= not button and s_d1_2 and stop_state;
 end arch;

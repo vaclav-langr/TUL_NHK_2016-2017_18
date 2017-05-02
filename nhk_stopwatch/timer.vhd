@@ -27,7 +27,7 @@ begin
          cnt := (others => '0');
          s_enable <= '0';
       elsif clk_in'event and clk_in = '1' then
-         if cnt = 20000 then
+         if cnt = 160000 then
             cnt := (others => '0');
             s_enable <= '1';
          else

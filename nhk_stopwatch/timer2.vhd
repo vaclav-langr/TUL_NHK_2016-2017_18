@@ -21,13 +21,13 @@ signal s_enable: std_logic;
 begin
 	
    process (reset_in, clk_in)
-      variable cnt : unsigned (14 downto 0);
+      variable cnt : unsigned (17 downto 0);
    begin
       if reset_in = '1' then
          cnt := (others => '0');
          s_enable <= '0';
       elsif clk_in'event and clk_in = '1' then
-         if cnt = 20000 then
+         if cnt = 160000 then
             cnt := (others => '0');
             s_enable <= '1';
          else
@@ -41,8 +41,8 @@ begin
    begin
 	 if clk_in'event and clk_in = '1' then
 		if timer2_en_in = '1' then
-			if s_enable = '1' and s_cnt8 < 200 then
-				s_cnt8 <= s_cnt8 + 1;
+			if s_enable = '1' then
+					s_cnt8 <= s_cnt8 + 1;
 			end if;
 		else
 			s_cnt8 <= (others => '0');
@@ -52,7 +52,7 @@ begin
    
    process (s_cnt8)
    begin
-		IF (s_cnt8 >= 200) THEN timer2_out <= '1'; ELSE timer2_out <= '0'; END IF;
+		IF (s_cnt8 = 100) THEN timer2_out <= '1'; ELSE timer2_out <= '0'; END IF;
    end process;  
 	
 END ar;
