@@ -6,6 +6,11 @@ entity nhk_stopwatch is
 		clk_in	:	in 	std_logic;
 		button1	:	in		std_logic;
 		button2	:	in		std_logic;
+		start_state	:	out	std_logic;
+		stop_state	:	out	std_logic;
+		clear_state	:	out	std_logic;
+		long_press	:	out	std_logic;
+		short_press :	out	std_logic;
 		segm1		:	out	std_logic_vector(6 downto 0);
 		segm2		:	out	std_logic_vector(6 downto 0);
 		segm3		:	out	std_logic_vector(6 downto 0);
@@ -30,11 +35,14 @@ Inst_stopwatch:	ENTITY work.stopwatch
 			button => button1,
 			stop_state => s_stop_state,
 			clear_state => s_clear_state,
+			start_state => start_state,
 			c_tens => s_c_tens,
 			c_ones => s_c_ones,
 			segm1 => segm1,
 			segm2	=> segm2
 		);
+stop_state <= s_stop_state;
+clear_state <= s_clear_state;
 Inst_hold_detector:	ENTITY work.hold_detector
 	PORT MAP(
 		clk_in => clk_in,
@@ -44,7 +52,8 @@ Inst_hold_detector:	ENTITY work.hold_detector
 		long_press => s_long_press,
 		short_press => s_short_press
 	);
-	
+long_press <= s_long_press;
+short_press <= s_short_press;
 Inst_memory_display:	ENTITY work.memory_display
 	PORT MAP(
 		clk_in => clk_in,

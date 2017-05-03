@@ -7,6 +7,7 @@ entity stopwatch is
 		button		:	in		std_logic;
 		stop_state	:	out	std_logic;
 		clear_state	:	out	std_logic;
+		start_state	:	out	std_logic;
 		c_tens		:	out	std_logic_vector(3 downto 0);
 		c_ones		:	out	std_logic_vector(3 downto 0);
 		segm1			:	out	std_logic_vector(6 downto 0);
@@ -33,6 +34,7 @@ Inst_machine:	ENTITY work.machine
 	);
 stop_state <= s_stop_state;
 clear_state <= s_clear_state;
+start_state <= s_start_state;
 Inst_timer1: ENTITY work.timer
 	PORT MAP(
 		clk_in => clk_in,
