@@ -54,6 +54,8 @@ set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST ON -section_id eda_s
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "2.5 V"
+set_global_assignment -name VHDL_FILE mux2_1.vhd
+set_global_assignment -name VHDL_FILE hr_d.vhd
 set_global_assignment -name VHDL_FILE detectorMachine.vhd
 set_global_assignment -name VHDL_FILE hr_d8.vhd
 set_global_assignment -name VHDL_FILE counter.vhd
@@ -66,7 +68,80 @@ set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform.vwf
 set_global_assignment -name VHDL_FILE hold_detector.vhd
 set_global_assignment -name VHDL_FILE memory_display.vhd
 set_global_assignment -name VHDL_FILE stopwatch.vhd
+set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform1.vwf
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_location_assignment PIN_22 -to button1
+set_location_assignment PIN_23 -to button2
+set_location_assignment PIN_28 -to clear_state
+set_location_assignment PIN_11 -to stop_state
+set_location_assignment PIN_10 -to start_state
+set_location_assignment PIN_88 -to clk_in
+set_location_assignment PIN_2 -to long_press
+set_location_assignment PIN_1 -to short_press
+set_location_assignment PIN_136 -to segm1[6]
+set_location_assignment PIN_137 -to segm1[5]
+set_location_assignment PIN_138 -to segm1[4]
+set_location_assignment PIN_141 -to segm1[3]
+set_location_assignment PIN_142 -to segm1[2]
+set_location_assignment PIN_143 -to segm1[1]
+set_location_assignment PIN_144 -to segm1[0]
+set_location_assignment PIN_125 -to segm2[6]
+set_location_assignment PIN_126 -to segm2[5]
+set_location_assignment PIN_127 -to segm2[4]
+set_location_assignment PIN_128 -to segm2[3]
+set_location_assignment PIN_129 -to segm2[2]
+set_location_assignment PIN_132 -to segm2[1]
+set_location_assignment PIN_133 -to segm2[0]
+set_location_assignment PIN_111 -to segm3[6]
+set_location_assignment PIN_113 -to segm3[5]
+set_location_assignment PIN_114 -to segm3[4]
+set_location_assignment PIN_115 -to segm3[3]
+set_location_assignment PIN_119 -to segm3[2]
+set_location_assignment PIN_120 -to segm3[1]
+set_location_assignment PIN_121 -to segm3[0]
+set_location_assignment PIN_98 -to segm4[6]
+set_location_assignment PIN_99 -to segm4[5]
+set_location_assignment PIN_100 -to segm4[4]
+set_location_assignment PIN_103 -to segm4[3]
+set_location_assignment PIN_104 -to segm4[2]
+set_location_assignment PIN_105 -to segm4[1]
+set_location_assignment PIN_106 -to segm4[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to button1
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to button2
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to clear_state
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to clk_in
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to long_press
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segm1[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segm1[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segm1[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segm1[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segm1[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segm1[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segm1[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segm2[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segm2[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segm2[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segm2[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segm2[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segm2[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segm2[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segm3[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segm3[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segm3[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segm3[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segm3[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segm3[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segm3[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segm4[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segm4[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segm4[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segm4[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segm4[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segm4[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segm4[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to short_press
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to start_state
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to stop_state
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

@@ -6,8 +6,7 @@ entity detectorMachine is
 		clk			:	in		std_logic;
 		reset			:	in		std_logic;
 		user_input	:	in		std_logic;
-		long_press	:	out	std_logic;
-		short_press	:	out	std_logic
+		long_press	:	out	std_logic
 	);
 end detectorMachine;
 
@@ -52,16 +51,12 @@ begin
 		case reg_state is
 			when s0 =>
 				long_press  <= '0';
-				short_press <= '0';
 			when s1 =>
 				long_press  <= '0';
-				short_press <= '1';
 			when s2 =>
 				long_press  <= '0';
-				short_press <= '1';
 			when s3 =>
 				long_press  <= '1';
-				short_press <= '0';
 			when others => null;
 		end case;
 	end process;
