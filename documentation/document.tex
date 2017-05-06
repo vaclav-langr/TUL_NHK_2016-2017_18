@@ -105,7 +105,7 @@
 	\end{figure}
 	
 	\section{Detekce délky stisknutí tlačítka}
-	Detekce délky stisknutí tlačítka byla již obtížnější část úlohy. Jako vstupy jsou v tomto bloku využity \uv{stop\_state} a \uv{clear\_state} z minulého bloku pro korektní nulování a funkcionalitu. Dále je zde uživatelský vstup tlačítko 2. Při držení tlačítka 2 je spuštěný časovač a logická 1 je uložena v klopném obvodu D. Výstup časovače je vstupem detekčního stavového automatu. Hodnota detekčního automatu je následně uložena pomocí multiplexoru a klopného obvodu D. Výstupy jsou následně ošetřeny, že jsou aktivní pouze po stisku tlačítka a ne během. Výstup určující krátký stisk je navíc podmíněn a je aktivní pouze pokud není nadetekován dlouhý stisk.
+	Detekce délky stisknutí tlačítka byla již obtížnější částí úlohy. Jako vstupy jsou v tomto bloku využity \uv{stop\_state} a \uv{clear\_state} z předchozího bloku pro korektní nulování a funkcionalitu. Dále je zde uživatelský vstup tlačítko 2. Při držení tlačítka 2 je spuštěn časovač a logická 1 je uložena v klopném obvodu D. Výstup časovače je vstupem detekčního stavového automatu. Hodnota detekčního automatu je následně uložena pomocí multiplexoru a klopného obvodu D. Výstupy jsou ošetřeny tak, aby nebyly aktivní během držení tlačítka. Krátký stisk je dále určen dlouhým stiskem a to tak, že pokud je dlouhý stisk nadetekován, tak nemůže být aktivní krátký stisk.
 	
 	\begin{figure}[h]
 		\centering
@@ -113,7 +113,7 @@
 	\end{figure}
 
 	\section{Detekční stavový automat}
-	Jedná se o velice jednoduchý automat, který má aktivní výstup pouze ve stavu \uv{s3}. Slouží pro detekci alespoň 2 pulzů ze vstupu. Zároveň je resetován při rozepnutí tlačítka 2, protože automat nemá jak se vrátit do začátečního stavu.
+	Jedná se o velice jednoduchý automat, který má aktivní výstup pouze ve stavu \uv{s3}. Slouží pro detekci alespoň 2 pulzů ze vstupu. Zároveň je resetován při rozepnutí tlačítka 2, protože automat nemá jak se vrátit do počátečního stavu.
 
 	\begin{figure}[h]
 		\centering
