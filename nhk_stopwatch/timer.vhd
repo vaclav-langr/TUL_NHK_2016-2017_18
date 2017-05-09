@@ -15,19 +15,19 @@ entity timer is
 end timer;
 
 architecture ar of timer is
-signal s_cnt8: integer range 0 to 100; -- 0 to 100
+signal s_cnt8: integer range 0 to 99; -- 0 to 200
 signal s_enable: std_logic;	
 	
 begin
 	
    process (reset_in, clk_in)
-      variable cnt : unsigned (14 downto 0);
+      variable cnt : unsigned (19 downto 0);
    begin
       if reset_in = '1' then
          cnt := (others => '0');
          s_enable <= '0';
       elsif clk_in'event and clk_in = '1' then
-         if cnt = 160000 then --160000
+         if cnt = 320000 then --320000
             cnt := (others => '0');
             s_enable <= '1';
          else
@@ -52,7 +52,7 @@ begin
    
    process (s_cnt8)
    begin
-		IF (s_cnt8 = 100) THEN timer1_out <= '1'; ELSE timer1_out <= '0'; END IF; --100
+		IF (s_cnt8 < 99) THEN timer1_out <= '1'; ELSE timer1_out <= '0'; END IF; --99
    end process;  
 	
 END ar;
